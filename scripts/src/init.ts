@@ -1,6 +1,4 @@
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
-import { getFaucetHost, requestSuiFromFaucetV0 } from '@mysten/sui/faucet';
-import { writeFile } from 'fs/promises';
 import { sleep, writeToFile } from './helpers';
 
 
@@ -17,11 +15,6 @@ const main = async () => {
     publicAddress,
     privateKey
   };
-
-  await requestSuiFromFaucetV0({
-    host: getFaucetHost('testnet'),
-    recipient: publicAddress,
-  });
 
   await writeToFile('keypair.json', JSON.stringify(keyPairConfig, null, 2));
   
