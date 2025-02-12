@@ -24,6 +24,8 @@ yarn init-keypair
 
 This will generate and fund a new keypair for you to use in the workshop. Make sure not to use this keypair in any production environments.
 
+Sui Faucet: [https://faucet.sui.io/](https://faucet.sui.io/) OR [Discord faucet](https://discord.gg/cKx75xrRMq)
+
 
 # Lessons
 
