@@ -1,35 +1,43 @@
-# Sui Object Model Workshop
+# Sui Object Model and PTBs Workshop
 
 When learning Sui Move, developers are encouraged to use best practices to utilize the Sui object model and ensure on-chain object composability. Developers learn to write composable move code in a timely manner, but struggle to verify their code by deploying and executing the functionality on chain. The key to mastering the Sui object model is to pair your Sui move development sessions with interacting with on-chain objects via PTBs (Programmable Transaction Blocks). This workshop will guide you through the process of writing Sui Move code, deploying it to the Sui blockchain, and interacting with on-chain objects via PTBs.
 
 # Table of Contents
-- [Sui Object Model Workshop](#sui-object-model-workshop)
+- [Sui Object Model and PTBs Workshop](#sui-object-model-and-ptbs-workshop)
 - [Table of Contents](#table-of-contents)
 - [Environment Setup](#environment-setup)
 - [Lessons](#lessons)
-  - [Handling Returned Objects](#handling-returned-objects)
-    - [Exercise](#exercise)
-  - [Objects as Input](#objects-as-input)
-    - [Exercise](#exercise-1)
+  - [Lesson 1: Handling Returned Objects](#lesson-1-handling-returned-objects)
+    - [Exercise 1: Handling Returned Sui NFT](#exercise-1-handling-returned-sui-nft)
+  - [Lesson 2: Objects as Input](#lesson-2-objects-as-input)
+    - [Exercise 2: Input Objects - Counter](#exercise-2-input-objects---counter)
+  - [Lesson 3: Putting it together](#lesson-3-putting-it-together)
+    - [Exercise 3: Scavenger Hunting with PTBs](#exercise-3-scavenger-hunting-with-ptbs)
 
 # Environment Setup
 
-Before we start, we need to set up our environment.
+Before we start, we need to set up our environment for our scripts.
+
+```bash
+cd scripts && pnpm install
+```
 
 Navigate to the `scripts` directory and run the following command: 
 
 ```bash
-yarn install && yarn init-keypair
+pnpm run init-keypair
 ```
 
 This will generate and fund a new keypair for you to use in the workshop. Make sure not to use this keypair in any production environments.
 
-Sui Faucet: [https://faucet.sui.io/](https://faucet.sui.io/) OR [Discord faucet](https://discord.gg/cKx75xrRMq)
-
+Sui Faucet options:
+- [n1stake faucet](https://faucet.n1stake.com)
+- [Official Sui faucet](https://faucet.sui.io/)
+- [Discord faucet](https://discord.gg/cKx75xrRMq)
 
 # Lessons
 
-## Handling Returned Objects
+## Lesson 1: Handling Returned Objects
 
 One of the best practices when writing Sui Move packages is to avoid self-transfers. In other words, avoid transferring objects to the sender of the transaction, and instead return the object from the current function. This allows a caller or programmable transaction block to use the object however they see fit. 
 
@@ -73,11 +81,17 @@ This is easy enough to do, but in most cases (when the object doesn't have the [
 
 In this lesson, you learn how to handle returned objects properly.
 
-### Exercise
+### Exercise 1: Handling Returned Sui NFT
 
-View the contents [`banana.move`](./lessons/returning_objects/banana_without_display/sources/banana_without_display.move). There is a deployed instance of this package on the Sui blockchain. The address of the package is [`0xadfb946c8c887446d284dae80ac8501c02ec9b9157babb96ca884773bfbb7771`](https://suiscan.xyz/testnet/object/0xadfb946c8c887446d284dae80ac8501c02ec9b9157babb96ca884773bfbb7771/txs). Navigate to [`scripts/lessons/return_objects/exercise.ts`](./scripts/src/lessons/return_objects/exercise.ts) and complete the exercise.
 
-## Objects as Input
+The package of the SUIII NFT is at [`0x57e029acbe322c733c1936ccba3642f27d0525c3883cf4e2742053ba2c5490b0`](https://suiscan.xyz/testnet/object/0x57e029acbe322c733c1936ccba3642f27d0525c3883cf4e2742053ba2c5490b0/tx-blocks) and the NFT object type is [`0x57e029acbe322c733c1936ccba3642f27d0525c3883cf4e2742053ba2c5490b0::sui_nft::SuiNFT`](https://suiscan.xyz/testnet/collection/0x57e029acbe322c733c1936ccba3642f27d0525c3883cf4e2742053ba2c5490b0::sui_nft::SuiNFT/items).
+
+
+View the contract at [`sui_nft.move`](./lessons/returning_objects/sui_nft/sources/sui_nft.move). Try to mint an NFT to your account and view it at explorer with PTBs.
+
+Navigate to [`scripts/src/return_objects_exercise.ts`](./scripts/src/return_objects_exercise.ts) and complete the exercise.
+
+## Lesson 2: Objects as Input
 
 There are a lot of situations where one will want to interact with objects on Sui. Referencing and using objects in Sui Move is simple but nuanced. To reference an object in Sui Move, make the object a function parameter. For example, 
 
@@ -107,6 +121,26 @@ The `delete` function receives the actual instance of the `SimpleObject` and del
 
 This usage is straightforward, but tends to leave developers wondering what this looks out in a wider context. In this lesson, you learn how to use objects as inputs in PTBs. 
 
-### Exercise
+### Exercise 2: Input Objects - Counter
 
-View the contents [`counter.move`](./lessons/input_objects/counter/sources/counter.move). There is a deployed instance of this package on the Sui blockchain. The address of the package is [`0xad3225e7d4827f81dc0686177067e1b458e8468ceabcff3456888ce3d806eb8c`](https://suiscan.xyz/testnet/object/0xad3225e7d4827f81dc0686177067e1b458e8468ceabcff3456888ce3d806eb8c/txs). Navigate to [`scripts/lessons/input_objects/exercise.ts`](./scripts/src/lessons/input_objects/exercise.ts) and complete the exercise.
+View the contents [`counter.move`](./lessons/input_objects/counter/sources/counter.move). There is a deployed instance of this package on the Sui blockchain. The address of the package is [`0xb3491c9657444a947c97d7eeccff0d4988b432f8a37e7f9a26fb6ed4fbc3df9a`](https://suiscan.xyz/testnet/object/0xb3491c9657444a947c97d7eeccff0d4988b432f8a37e7f9a26fb6ed4fbc3df9a/txs) and the counter object is [0x8a6f2bc3af32c71a93a35d397fd47c14f67b7aa252002c907df9b172e95c0ec6](https://suiscan.xyz/testnet/object/0x8a6f2bc3af32c71a93a35d397fd47c14f67b7aa252002c907df9b172e95c0ec6/fields).
+
+
+Navigate to [`scripts/src/input_objects_exercise.ts`](./scripts/src/input_objects_exercise.ts) and complete the exercise.
+
+
+
+## Lesson 3: Putting it together
+### Exercise 3: Scavenger Hunting with PTBs
+
+In this exercise, you will try to get the `SUI` coin in Testnet from the vault using a key created by PTBs. The deployed contract is at [`0xef97bc41cfa119c78905d8385e89b1ee5ce79b244f79834d44be213366dae105`](https://suiscan.xyz/testnet/object/0xef97bc41cfa119c78905d8385e89b1ee5ce79b244f79834d44be213366dae105/contracts).
+
+Navigate to [`scavenger`](./lessons/scavenger) to read the smart contract code.
+
+You will need to create a PTB to:
+1. Create a key
+2. Set the key code correctly
+3. Use the key to withdraw the `SUI` coin from the vault
+4. Transfer the `SUI` coin to your account
+
+Navigate to [`scripts/src/scavenger_hunt_exercise.ts`](./scripts/src/scavenger_hunt_exercise.ts) and complete the exercise.
