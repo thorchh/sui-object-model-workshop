@@ -139,7 +139,7 @@ Navigate to [`scavenger`](./lessons/scavenger) to read the smart contract code.
 
 You will need to create a PTB to:
 1. Create a key
-2. Set the key code correctly
+2. Set the key code correctly (Hint: You can view the on-chain vault object fields https://suiscan.xyz/testnet/object/0x8d85d37761d2a4e391c1b547c033eb0e22eb5b825820cbcc0c386b8ecb22be33/fields)
 3. Use the key to withdraw the `SUI` coin from the vault
 4. Transfer the `SUI` coin to your account
 
